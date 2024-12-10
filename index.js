@@ -10,6 +10,9 @@ connectMongoDb("mongodb://localhost:27017/url-shortner")
   .then(() => console.log("MongoDb connected!"))
   .catch((err) => console.log("MongoDb Error", err));
 
+// middleware
+app.use(express.json());
+
 // route
 app.use("/url", urlRoute);
 
