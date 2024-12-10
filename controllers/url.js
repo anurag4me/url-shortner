@@ -9,9 +9,10 @@ async function handleGenerateNewShortUrl(req, res) {
     shortId: short_id,
     redirectURL: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
 
-  return res.render("home", { id: short_id, urls: await URL.find({}) })
+  return res.render("home", { id: short_id, urls: await URL.find({}) });
 }
 
 async function handleGetAnalytics(req, res) {
