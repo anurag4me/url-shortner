@@ -12,7 +12,7 @@ async function handleGenerateNewShortUrl(req, res) {
     createdBy: req.user._id,
   });
 
-  return res.render("home", { id: short_id, urls: await URL.find({}) });
+  return res.render("home", { id: short_id, urls: await URL.find({createdBy: req.user._id}) });
 }
 
 async function handleGetAnalytics(req, res) {
