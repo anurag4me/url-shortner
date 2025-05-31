@@ -24,4 +24,8 @@ router.get("/login", async (req, res) => {
   return res.render("login");
 });
 
+router.get("/logout", (req, res) => {
+  return res.clearCookie("token").redirect("/login");
+})
+
 module.exports = router;
