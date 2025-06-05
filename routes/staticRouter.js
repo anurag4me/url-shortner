@@ -7,12 +7,14 @@ const router = express.Router();
 
 router.get('/admin/urls', restrictTo(['ADMIN']), async (req, res) => {
   const allUrls = await URL.find().populate('createdBy');
-  return res.render("home", { urls: allUrls });
+  const id = req.flash("id")[0];
+  return res.render("home", { id, urls: allUrls });
 })
 
 router.get("/", restrictTo(['NORMAL', 'ADMIN']), async (req, res) => {
   const allUrls = await URL.find({ createdBy: req.user._id });
-  return res.render("home", { urls: allUrls });
+  const id = req.flash("id")[0];
+  return res.render("home", { id, urls: allUrls });
 });
 
 router.get("/signup", async (req, res) => {

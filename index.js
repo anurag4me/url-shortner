@@ -3,6 +3,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const connectMongoDb = require("./connection");
 const { checkForAuthentication, restrictTo } = require("./middlewares/auth");
+const session = require('express-session')
+const flash = require('connect-flash')
 
 const URL = require("./models/url");
 
@@ -27,6 +29,14 @@ app.use(express.json()); // for supporting json data
 app.use(express.urlencoded({ extended: false })); // for supporting form data while post req
 app.use(cookieParser());
 app.use(checkForAuthentication);
+app.use(  // session setup for using flash 
+  session({
+    secret: 'url-shortner',
+    resave: false,
+    saveUninitialized: false,
+  })
+)
+app.use(flash()) // calling flash middleware 
 
 // route
 app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRoute);
