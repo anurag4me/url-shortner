@@ -6,9 +6,8 @@ const { restrictTo } = require("../middlewares/auth");
 const router = express.Router();
 
 router.get('/admin/urls', restrictTo(['ADMIN']), async (req, res) => {
-  const allUrls = await URL.find({ });
-  const allUsers = await User.find({ });
-  return res.render("home", { urls: allUrls, users: allUsers });
+  const allUrls = await URL.find().populate('createdBy');
+  return res.render("home", { urls: allUrls });
 })
 
 router.get("/", restrictTo(['NORMAL', 'ADMIN']), async (req, res) => {
